@@ -1,0 +1,92 @@
+# VisionAI
+
+A sleek, modern web application for generating AI-powered images using the Pollinations AI API. Create stunning artwork from text prompts with a beautiful dark-themed interface.
+
+![VisionAI](https://img.shields.io/badge/VisionAI-AI%20Image%20Generator-6366f1?style=for-the-badge)
+
+## ✨ Features
+
+- **AI Image Generation** - Transform text prompts into stunning images using various AI models
+- **Multiple Models** - Choose from 9 different AI models including Turbo, Z-Image, SeeDream, GPT Image, and more
+- **Customizable Dimensions** - Set image width and height (256px to 2048px)
+- **Generation History** - View and re-use your 10 most recent generations
+- **Image Actions** - Download, copy link, or share your generated images
+- **Responsive Design** - Works beautifully on desktop and mobile devices
+- **Local Storage** - Your API key and history are stored locally in your browser
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- A modern web browser (Chrome, Firefox, Safari, Edge)
+- A Pollinations API key from [pollinations.ai](https://pollinations.ai)
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Superheroghost/VisionAI.git
+   cd VisionAI
+   ```
+
+2. Open `index.html` in your browser, or serve it with any static file server:
+   ```bash
+   # Using Python
+   python -m http.server 8000
+   
+   # Using Node.js (npx)
+   npx serve .
+   ```
+
+3. Enter your Pollinations API key when prompted
+
+### Usage
+
+1. **Enter a Prompt** - Describe the image you want to generate in the text area
+2. **Select a Model** - Choose from available AI models:
+   - **Turbo** - Fast generation (default)
+   - **Z-Image** - Artistic style
+   - **SeeDream / SeeDream Pro** - Dream-like imagery
+   - **GPT Image / GPT Image Large** - GPT-powered generation
+   - **Kontext** - Context-aware generation
+   - **Nano Banana / Nano Banana Pro** - Experimental models
+3. **Set Dimensions** - Adjust width and height (default: 1024×1024)
+4. **Generate** - Click the "Generate Image" button or press `Ctrl+Enter`
+5. **Save & Share** - Download, copy the link, or share your creation
+
+## 🛠️ Tech Stack
+
+- **HTML5** - Semantic markup
+- **CSS3** - Modern styling with CSS variables and glass morphism effects
+- **Vanilla JavaScript** - ES Modules for clean, modular code
+- **[Lucide Icons](https://lucide.dev/)** - Beautiful, consistent icons
+- **[Canvas Confetti](https://github.com/catdad/canvas-confetti)** - Celebration effects on successful generation
+
+## 📁 Project Structure
+
+```
+VisionAI/
+├── index.html    # Main HTML file
+├── style.css     # Styling and animations
+├── app.js        # Main application logic
+├── api.js        # Pollinations API interface
+└── README.md     # This file
+```
+
+## 🔒 Privacy
+
+- Your API key is stored locally in your browser's localStorage
+- Generation history is kept locally and never sent to external servers
+- No analytics or tracking is implemented
+
+## 📝 License
+
+This project is open source. Please see the repository for licensing details.
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to open issues or submit pull requests.
+
+---
+
+Made with ❤️ and AI
