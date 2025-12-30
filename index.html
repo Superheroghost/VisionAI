@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pollinations Vision AI</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="importmap">
+    {
+      "imports": {
+        "lucide": "https://esm.sh/lucide@0.441.0",
+        "canvas-confetti": "https://esm.sh/canvas-confetti@1.9.3"
+      }
+    }
+    </script>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <div class="logo-container">
+                <img src="logo.png" alt="Logo" class="logo">
+                <h1>Vision<span>AI</span></h1>
+            </div>
+            <button id="settings-toggle" class="icon-btn">
+                <i data-lucide="settings"></i>
+            </button>
+        </header>
+
+        <main>
+            <section class="generator-card">
+                <div class="input-group">
+                    <label for="prompt">What do you want to see?</label>
+                    <textarea id="prompt" placeholder="A futuristic city floating in the clouds, cyberpunk style, high detail..." rows="3"></textarea>
+                </div>
+
+                <div class="controls-grid">
+                    <div class="input-subgroup">
+                        <label for="model">Model</label>
+                        <select id="model">
+                            <option value="turbo" selected>Turbo (Fast)</option>
+                            <option value="zimage">Z-Image (Artistic)</option>
+                            <option value="seedream">SeeDream</option>
+                            <option value="seedream-pro">SeeDream Pro</option>
+                            <option value="gptimage">GPT Image</option>
+                            <option value="gptimage-large">GPT Image Large</option>
+                            <option value="kontext">Kontext</option>
+                            <option value="nanobanana">Nano Banana</option>
+                            <option value="nanobanana-pro">Nano Banana Pro</option>
+                        </select>
+                    </div>
+
+                    <div class="input-subgroup">
+                        <label>Dimensions</label>
+                        <div class="dimension-inputs">
+                            <input type="number" id="width" value="1024" step="64" min="256" max="2048">
+                            <span>×</span>
+                            <input type="number" id="height" value="1024" step="64" min="256" max="2048">
+                        </div>
+                    </div>
+                </div>
+
+                <div id="api-key-container">
+                    <div class="input-group">
+                        <label for="api-key">Pollinations API Key (Required)</label>
+                        <input type="password" id="api-key" placeholder="Enter your API key from pollinations.ai">
+                    </div>
+                </div>
+
+                <button id="generate-btn" class="primary-btn">
+                    <i data-lucide="sparkles"></i>
+                    <span>Generate Image</span>
+                </button>
+            </section>
+
+            <section id="result-area" class="empty">
+                <div class="placeholder">
+                    <i data-lucide="image" class="large-icon"></i>
+                    <p>Your creation will appear here</p>
+                </div>
+                <div id="loading-overlay" class="hidden">
+                    <div class="loader"></div>
+                    <p>Manifesting your vision...</p>
+                </div>
+                <div id="image-container" class="hidden">
+                    <img id="output-image" src="" alt="Generated AI artwork">
+                    <div class="image-actions">
+                        <button id="download-btn" class="secondary-btn"><i data-lucide="download"></i></button>
+                        <button id="copy-btn" class="secondary-btn"><i data-lucide="copy"></i></button>
+                        <button id="share-btn" class="secondary-btn"><i data-lucide="share-2"></i></button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="history-section">
+                <h3><i data-lucide="history"></i> Recent Generations</h3>
+                <div id="history-grid" class="history-grid">
+                    <!-- History items will be injected here -->
+                </div>
+            </section>
+        </main>
+
+        <div id="toast" class="toast hidden"></div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
