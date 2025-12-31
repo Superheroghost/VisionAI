@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Pollinations Vision AI</title>
-    <link rel="icon" type="image/png" href="logo.png">
     <link rel="stylesheet" href="style.css">
     <script type="importmap">
     {
@@ -31,7 +30,12 @@
             <section class="generator-card">
                 <div class="input-group">
                     <label for="prompt">What do you want to see?</label>
-                    <textarea id="prompt" placeholder="A futuristic city floating in the clouds, cyberpunk style, high detail..." rows="3"></textarea>
+                    <div class="textarea-container">
+                        <textarea id="prompt" placeholder="A futuristic city floating in the clouds, cyberpunk style, high detail..." rows="3"></textarea>
+                        <button id="magic-prompt-btn" class="magic-btn" title="Enhance prompt with AI">
+                            <i data-lucide="wand-2"></i>
+                        </button>
+                    </div>
                 </div>
 
                 <div class="controls-grid">
