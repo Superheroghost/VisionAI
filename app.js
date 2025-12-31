@@ -1,7 +1,8 @@
-// Import with error handling
-let createIcons = () => {};
+// Gracefully handle external dependency imports with fallbacks
+// These are initialized as no-op functions to prevent errors if imports fail
+let createIcons = () => {}; // Fallback for Lucide icon creation
 let Settings, Sparkles, Image, History, Download, Copy, Share2, Wand2, AlertCircle;
-let confetti = () => {};
+let confetti = () => {}; // Fallback for canvas-confetti animation
 let PollinationsAPI;
 
 // Global state and elements that will be initialized
@@ -36,7 +37,7 @@ let state, api, elements;
         const apiModule = await import('./api.js');
         PollinationsAPI = apiModule.PollinationsAPI;
     } catch (error) {
-        console.error('Failed to load API module:', error);
+        console.error('Failed to load API module - application cannot function without it:', error);
         return;
     }
 
