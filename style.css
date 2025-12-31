@@ -274,22 +274,27 @@ textarea:focus, input:focus, select:focus {
 }
 
 .reset-btn {
-    background: rgba(239, 68, 68, 0.2);
-    border: 1px solid rgba(239, 68, 68, 0.5);
-    color: #ef4444;
-    padding: 10px 16px;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: 600;
+    background: #dc2626;
+    border: 2px solid #b91c1c;
+    color: #ffffff;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 700;
     cursor: pointer;
     transition: all 0.2s;
     margin-top: 12px;
     width: 100%;
+    text-align: center;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
 }
 
 .reset-btn:hover {
-    background: rgba(239, 68, 68, 0.3);
-    border-color: #ef4444;
+    background: #b91c1c;
+    border-color: #991b1b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
 }
 
 /* Loader */

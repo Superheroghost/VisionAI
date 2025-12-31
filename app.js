@@ -1,42 +1,84 @@
-import { createIcons, Settings, Sparkles, Image, History, Download, Copy, Share2, Wand2, AlertCircle } from 'lucide';
-import confetti from 'canvas-confetti';
-import { PollinationsAPI } from './api.js';
+// Import with error handling
+let createIcons = () => {};
+let Settings, Sparkles, Image, History, Download, Copy, Share2, Wand2, AlertCircle;
+let confetti = () => {};
+let PollinationsAPI;
 
-// State Management
-const state = {
-    isGenerating: false,
-    history: JSON.parse(localStorage.getItem('vision_ai_history') || '[]'),
-    apiKey: localStorage.getItem('pollinations_api_key') || '',
-    model: localStorage.getItem('vision_ai_model') || 'turbo',
-    width: localStorage.getItem('vision_ai_width') || '1024',
-    height: localStorage.getItem('vision_ai_height') || '1024',
-};
+// Global state and elements that will be initialized
+let state, api, elements;
 
-const api = new PollinationsAPI(state.apiKey);
+// Load dependencies dynamically
+(async () => {
+    try {
+        const lucide = await import('lucide');
+        createIcons = lucide.createIcons;
+        Settings = lucide.Settings;
+        Sparkles = lucide.Sparkles;
+        Image = lucide.Image;
+        History = lucide.History;
+        Download = lucide.Download;
+        Copy = lucide.Copy;
+        Share2 = lucide.Share2;
+        Wand2 = lucide.Wand2;
+        AlertCircle = lucide.AlertCircle;
+    } catch (error) {
+        console.warn('Lucide icons failed to load, continuing without icons:', error.message);
+    }
 
-// DOM Elements
-const elements = {
-    promptInput: document.getElementById('prompt'),
-    modelSelect: document.getElementById('model'),
-    widthInput: document.getElementById('width'),
-    heightInput: document.getElementById('height'),
-    apiKeyInput: document.getElementById('api-key'),
-    generateBtn: document.getElementById('generate-btn'),
-    settingsToggle: document.getElementById('settings-toggle'),
-    apiKeyContainer: document.getElementById('api-key-container'),
-    resultArea: document.getElementById('result-area'),
-    placeholder: document.querySelector('.placeholder'),
-    loadingOverlay: document.getElementById('loading-overlay'),
-    imageContainer: document.getElementById('image-container'),
-    outputImage: document.getElementById('output-image'),
-    historyGrid: document.getElementById('history-grid'),
-    toast: document.getElementById('toast'),
-    downloadBtn: document.getElementById('download-btn'),
-    copyBtn: document.getElementById('copy-btn'),
-    shareBtn: document.getElementById('share-btn'),
-    magicPromptBtn: document.getElementById('magic-prompt-btn'),
-    resetDefaultsBtn: document.getElementById('reset-defaults-btn'),
-};
+    try {
+        const confettiModule = await import('canvas-confetti');
+        confetti = confettiModule.default;
+    } catch (error) {
+        console.warn('Canvas confetti failed to load, continuing without confetti:', error.message);
+    }
+
+    try {
+        const apiModule = await import('./api.js');
+        PollinationsAPI = apiModule.PollinationsAPI;
+    } catch (error) {
+        console.error('Failed to load API module:', error);
+        return;
+    }
+
+    // Initialize state and API after dependencies are loaded
+    state = {
+        isGenerating: false,
+        history: JSON.parse(localStorage.getItem('vision_ai_history') || '[]'),
+        apiKey: localStorage.getItem('pollinations_api_key') || '',
+        model: localStorage.getItem('vision_ai_model') || 'turbo',
+        width: localStorage.getItem('vision_ai_width') || '1024',
+        height: localStorage.getItem('vision_ai_height') || '1024',
+    };
+
+    api = new PollinationsAPI(state.apiKey);
+
+    // DOM Elements
+    elements = {
+        promptInput: document.getElementById('prompt'),
+        modelSelect: document.getElementById('model'),
+        widthInput: document.getElementById('width'),
+        heightInput: document.getElementById('height'),
+        apiKeyInput: document.getElementById('api-key'),
+        generateBtn: document.getElementById('generate-btn'),
+        settingsToggle: document.getElementById('settings-toggle'),
+        apiKeyContainer: document.getElementById('api-key-container'),
+        resultArea: document.getElementById('result-area'),
+        placeholder: document.querySelector('.placeholder'),
+        loadingOverlay: document.getElementById('loading-overlay'),
+        imageContainer: document.getElementById('image-container'),
+        outputImage: document.getElementById('output-image'),
+        historyGrid: document.getElementById('history-grid'),
+        toast: document.getElementById('toast'),
+        downloadBtn: document.getElementById('download-btn'),
+        copyBtn: document.getElementById('copy-btn'),
+        shareBtn: document.getElementById('share-btn'),
+        magicPromptBtn: document.getElementById('magic-prompt-btn'),
+        resetDefaultsBtn: document.getElementById('reset-defaults-btn'),
+    };
+
+    // Initialize the app after loading all dependencies
+    init();
+})();
 
 // Initialize Icons
 const refreshIcons = () => createIcons({
@@ -343,5 +385,4 @@ function showToast(message) {
     }, 3000);
 }
 
-// Start the app
-init();
+// App initialization happens in the async IIFE at the top after loading dependencies
