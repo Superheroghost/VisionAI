@@ -35,6 +35,7 @@ const elements = {
     copyBtn: document.getElementById('copy-btn'),
     shareBtn: document.getElementById('share-btn'),
     magicPromptBtn: document.getElementById('magic-prompt-btn'),
+    resetDefaultsBtn: document.getElementById('reset-defaults-btn'),
 };
 
 // Initialize Icons
@@ -92,6 +93,7 @@ function init() {
     elements.downloadBtn.addEventListener('click', downloadImage);
     elements.copyBtn.addEventListener('click', copyImageLink);
     elements.shareBtn.addEventListener('click', shareImage);
+    elements.resetDefaultsBtn.addEventListener('click', resetToDefaults);
 
     // Enter to generate
     elements.promptInput.addEventListener('keydown', (e) => {
@@ -292,6 +294,42 @@ async function shareImage() {
     } else {
         copyImageLink();
     }
+}
+
+function resetToDefaults() {
+    // Confirm before performing destructive action
+    if (!confirm('Are you sure you want to reset all settings? This will clear your API key, preferences, and generation history.')) {
+        return;
+    }
+
+    // Clear all persisted settings from localStorage
+    localStorage.removeItem('pollinations_api_key');
+    localStorage.removeItem('vision_ai_model');
+    localStorage.removeItem('vision_ai_width');
+    localStorage.removeItem('vision_ai_height');
+    localStorage.removeItem('vision_ai_history');
+
+    // Reset state to defaults
+    state.apiKey = '';
+    state.model = 'turbo';
+    state.width = '1024';
+    state.height = '1024';
+    state.history = [];
+
+    // Reset UI elements to defaults
+    elements.apiKeyInput.value = '';
+    elements.modelSelect.value = 'turbo';
+    elements.widthInput.value = '1024';
+    elements.heightInput.value = '1024';
+
+    // Update API instance
+    api.setApiKey('');
+
+    // Re-render history (now empty)
+    renderHistory();
+
+    // Show confirmation
+    showToast("Settings reset to defaults!");
 }
 
 function showToast(message) {
