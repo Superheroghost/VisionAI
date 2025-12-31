@@ -94,7 +94,3 @@ This project is open source. Please see the repository for licensing details.
 ## 🤝 Contributing
 
 Contributions are welcome! Feel free to open issues or submit pull requests.
-
----
-
-Made with ❤️ and AI
