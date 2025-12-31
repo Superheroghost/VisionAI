@@ -1,4 +1,4 @@
-import { createIcons, Settings, Sparkles, Image, History, Download, Copy, Share2 } from 'lucide';
+import { createIcons, Settings, Sparkles, Image, History, Download, Copy, Share2, Wand2, AlertCircle } from 'lucide';
 import confetti from 'canvas-confetti';
 import { PollinationsAPI } from './api.js';
 
@@ -31,11 +31,12 @@ const elements = {
     downloadBtn: document.getElementById('download-btn'),
     copyBtn: document.getElementById('copy-btn'),
     shareBtn: document.getElementById('share-btn'),
+    magicPromptBtn: document.getElementById('magic-prompt-btn'),
 };
 
 // Initialize Icons
 const refreshIcons = () => createIcons({
-    icons: { Settings, Sparkles, Image, History, Download, Copy, Share2 }
+    icons: { Settings, Sparkles, Image, History, Download, Copy, Share2, Wand2, AlertCircle }
 });
 
 function init() {
@@ -52,6 +53,7 @@ function init() {
 
     // Event Listeners
     elements.generateBtn.addEventListener('click', handleGenerate);
+    elements.magicPromptBtn.addEventListener('click', handleMagicPrompt);
     elements.settingsToggle.addEventListener('click', () => {
         elements.apiKeyContainer.classList.toggle('hidden');
     });
@@ -70,6 +72,32 @@ function init() {
     elements.promptInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' && e.ctrlKey) handleGenerate();
     });
+}
+
+async function handleMagicPrompt() {
+    const currentPrompt = elements.promptInput.value.trim();
+    if (!currentPrompt) {
+        showToast("Enter a base prompt first!");
+        return;
+    }
+
+    if (!state.apiKey) {
+        showToast("API Key required for magic prompts!");
+        elements.apiKeyContainer.classList.remove('hidden');
+        return;
+    }
+
+    elements.magicPromptBtn.classList.add('loading');
+    try {
+        const improved = await api.improvePrompt(currentPrompt);
+        elements.promptInput.value = improved;
+        showToast("Prompt enhanced with AI magic!");
+    } catch (error) {
+        console.error(error);
+        showToast("Magic failed: " + error.message);
+    } finally {
+        elements.magicPromptBtn.classList.remove('loading');
+    }
 }
 
 async function handleGenerate() {
