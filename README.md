@@ -7,12 +7,14 @@ A sleek, modern web application for generating AI-powered images using the Polli
 ## ✨ Features
 
 - **AI Image Generation** - Transform text prompts into stunning images using various AI models
+- **Magic Prompt Enhancement** - Use AI to automatically enhance and improve your prompts for better results
 - **Multiple Models** - Choose from 9 different AI models including Turbo, Z-Image, SeeDream, GPT Image, and more
 - **Customizable Dimensions** - Set image width and height (256px to 2048px)
+- **Persistent Settings** - Your selected model, dimensions, and API key are saved and persist across page refreshes
 - **Generation History** - View and re-use your 10 most recent generations
 - **Image Actions** - Download, copy link, or share your generated images
 - **Responsive Design** - Works beautifully on desktop and mobile devices
-- **Local Storage** - Your API key and history are stored locally in your browser
+- **Local Storage** - Your API key, settings, and history are stored locally in your browser
 
 ## 🚀 Getting Started
 
@@ -43,16 +45,19 @@ A sleek, modern web application for generating AI-powered images using the Polli
 ### Usage
 
 1. **Enter a Prompt** - Describe the image you want to generate in the text area
-2. **Select a Model** - Choose from available AI models:
+2. **Enhance with Magic Prompt** - Click the wand button (✨) next to the prompt to use AI to enhance your prompt for better results
+3. **Select a Model** - Choose from available AI models:
    - **Turbo** - Fast generation (default)
    - **Z-Image** - Artistic style
    - **SeeDream / SeeDream Pro** - Dream-like imagery
    - **GPT Image / GPT Image Large** - GPT-powered generation
    - **Kontext** - Context-aware generation
    - **Nano Banana / Nano Banana Pro** - Experimental models
-3. **Set Dimensions** - Adjust width and height (default: 1024×1024)
-4. **Generate** - Click the "Generate Image" button or press `Ctrl+Enter`
-5. **Save & Share** - Download, copy the link, or share your creation
+4. **Set Dimensions** - Adjust width and height (default: 1024×1024)
+5. **Generate** - Click the "Generate Image" button or press `Ctrl+Enter`
+6. **Save & Share** - Download, copy the link, or share your creation
+
+> **Note:** Your selected model, dimensions, and API key are automatically saved and will persist when you refresh the page.
 
 ## 🛠️ Tech Stack
 
@@ -76,6 +81,7 @@ VisionAI/
 ## 🔒 Privacy
 
 - Your API key is stored locally in your browser's localStorage
+- Your settings (model, dimensions) are stored locally and persist across sessions
 - Generation history is kept locally and never sent to external servers
 - No analytics or tracking is implemented
 

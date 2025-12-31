@@ -79,12 +79,12 @@ function init() {
         localStorage.setItem('vision_ai_model', state.model);
     });
 
-    elements.widthInput.addEventListener('change', (e) => {
+    elements.widthInput.addEventListener('input', (e) => {
         state.width = e.target.value;
         localStorage.setItem('vision_ai_width', state.width);
     });
 
-    elements.heightInput.addEventListener('change', (e) => {
+    elements.heightInput.addEventListener('input', (e) => {
         state.height = e.target.value;
         localStorage.setItem('vision_ai_height', state.height);
     });
