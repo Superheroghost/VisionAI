@@ -11,6 +11,7 @@ A sleek, modern web application for generating AI-powered images using the Polli
 - **Multiple Models** - Choose from 9 different AI models including Turbo, Z-Image, SeeDream, GPT Image, and more
 - **Customizable Dimensions** - Set image width and height (256px to 2048px)
 - **Persistent Settings** - Your selected model, dimensions, and API key are saved and persist across page refreshes
+- **Reset to Defaults** - Easily reset all settings, API key, and history to their default values
 - **Generation History** - View and re-use your 10 most recent generations
 - **Image Actions** - Download, copy link, or share your generated images
 - **Responsive Design** - Works beautifully on desktop and mobile devices
@@ -56,8 +57,9 @@ A sleek, modern web application for generating AI-powered images using the Polli
 4. **Set Dimensions** - Adjust width and height (default: 1024×1024)
 5. **Generate** - Click the "Generate Image" button or press `Ctrl+Enter`
 6. **Save & Share** - Download, copy the link, or share your creation
+7. **Reset Settings** - Click the settings icon (⚙️) and then "Reset to Defaults" to clear all saved settings, API key, and history
 
-> **Note:** Your selected model, dimensions, and API key are automatically saved and will persist when you refresh the page.
+> **Note:** Your selected model, dimensions, and API key are automatically saved and will persist when you refresh the page. Use the "Reset to Defaults" button to restore default settings.
 
 ## 🛠️ Tech Stack
 
