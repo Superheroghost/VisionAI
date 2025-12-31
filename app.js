@@ -7,6 +7,9 @@ const state = {
     isGenerating: false,
     history: JSON.parse(localStorage.getItem('vision_ai_history') || '[]'),
     apiKey: localStorage.getItem('pollinations_api_key') || '',
+    model: localStorage.getItem('vision_ai_model') || 'turbo',
+    width: localStorage.getItem('vision_ai_width') || '1024',
+    height: localStorage.getItem('vision_ai_height') || '1024',
 };
 
 const api = new PollinationsAPI(state.apiKey);
@@ -46,6 +49,13 @@ function init() {
     // Set stored API key in input
     elements.apiKeyInput.value = state.apiKey;
     
+    // Set stored model in select
+    elements.modelSelect.value = state.model;
+    
+    // Set stored dimensions
+    elements.widthInput.value = state.width;
+    elements.heightInput.value = state.height;
+    
     // If no API key, ensure container is visible
     if (!state.apiKey) {
         elements.apiKeyContainer.classList.remove('hidden');
@@ -62,6 +72,21 @@ function init() {
         state.apiKey = e.target.value;
         localStorage.setItem('pollinations_api_key', state.apiKey);
         api.setApiKey(state.apiKey);
+    });
+
+    elements.modelSelect.addEventListener('change', (e) => {
+        state.model = e.target.value;
+        localStorage.setItem('vision_ai_model', state.model);
+    });
+
+    elements.widthInput.addEventListener('change', (e) => {
+        state.width = e.target.value;
+        localStorage.setItem('vision_ai_width', state.width);
+    });
+
+    elements.heightInput.addEventListener('change', (e) => {
+        state.height = e.target.value;
+        localStorage.setItem('vision_ai_height', state.height);
     });
 
     elements.downloadBtn.addEventListener('click', downloadImage);
