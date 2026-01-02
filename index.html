@@ -134,7 +134,7 @@
             // Validate and set model (only if option exists)
             if (modelSelect) {
                 const modelValue = window.__visionAISettings.model;
-                const optionExists = Array.from(modelSelect.options).some(opt => opt.value === modelValue);
+                const optionExists = modelSelect.querySelector(`option[value="${modelValue}"]`);
                 if (optionExists) {
                     modelSelect.value = modelValue;
                 }
