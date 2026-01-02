@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Pollinations Vision AI</title>
     <link rel="stylesheet" href="style.css">
+    <script>
+        // Load settings before page renders to prevent flicker
+        (function() {
+            const savedModel = localStorage.getItem('vision_ai_model');
+            const savedWidth = localStorage.getItem('vision_ai_width');
+            const savedHeight = localStorage.getItem('vision_ai_height');
+            
+            window.__visionAISettings = {
+                model: savedModel || 'turbo',
+                width: savedWidth || '1024',
+                height: savedHeight || '1024'
+            };
+        })();
+    </script>
     <script type="importmap">
     {
       "imports": {
@@ -42,7 +56,7 @@
                     <div class="input-subgroup">
                         <label for="model">Model</label>
                         <select id="model">
-                            <option value="turbo" selected>Turbo (Fast)</option>
+                            <option value="turbo">Turbo (Fast)</option>
                             <option value="zimage">Z-Image (Artistic)</option>
                             <option value="seedream">SeeDream</option>
                             <option value="seedream-pro">SeeDream Pro</option>
@@ -57,9 +71,9 @@
                     <div class="input-subgroup">
                         <label>Dimensions</label>
                         <div class="dimension-inputs">
-                            <input type="number" id="width" value="1024" step="64" min="256" max="2048">
+                            <input type="number" id="width" step="64" min="256" max="2048">
                             <span>×</span>
-                            <input type="number" id="height" value="1024" step="64" min="256" max="2048">
+                            <input type="number" id="height" step="64" min="256" max="2048">
                         </div>
                     </div>
                 </div>
@@ -110,6 +124,44 @@
         <div id="toast" class="toast hidden"></div>
     </div>
 
+    <script>
+        // Apply saved settings immediately to prevent flicker
+        if (window.__visionAISettings) {
+            const modelSelect = document.getElementById('model');
+            const widthInput = document.getElementById('width');
+            const heightInput = document.getElementById('height');
+            
+            // Validate and set model (only if option exists)
+            if (modelSelect) {
+                const modelValue = window.__visionAISettings.model;
+                // Find option safely without CSS injection risk
+                const optionExists = Array.from(modelSelect.options).find(opt => opt.value === modelValue);
+                if (optionExists) {
+                    modelSelect.value = modelValue;
+                }
+            }
+            
+            // Validate and set width (ensure it's a valid number within range)
+            if (widthInput) {
+                const width = parseInt(window.__visionAISettings.width, 10);
+                if (!isNaN(width) && width >= 256 && width <= 2048) {
+                    widthInput.value = width;
+                } else {
+                    widthInput.value = '1024'; // Default fallback
+                }
+            }
+            
+            // Validate and set height (ensure it's a valid number within range)
+            if (heightInput) {
+                const height = parseInt(window.__visionAISettings.height, 10);
+                if (!isNaN(height) && height >= 256 && height <= 2048) {
+                    heightInput.value = height;
+                } else {
+                    heightInput.value = '1024'; // Default fallback
+                }
+            }
+        }
+    </script>
     <script type="module" src="app.js"></script>
 </body>
 </html>
