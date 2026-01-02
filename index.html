@@ -134,14 +134,32 @@
             // Validate and set model (only if option exists)
             if (modelSelect) {
                 const modelValue = window.__visionAISettings.model;
-                const optionExists = modelSelect.querySelector(`option[value="${modelValue}"]`);
+                // Find option safely without CSS injection risk
+                const optionExists = Array.from(modelSelect.options).find(opt => opt.value === modelValue);
                 if (optionExists) {
                     modelSelect.value = modelValue;
                 }
             }
             
-            if (widthInput) widthInput.value = window.__visionAISettings.width;
-            if (heightInput) heightInput.value = window.__visionAISettings.height;
+            // Validate and set width (ensure it's a valid number within range)
+            if (widthInput) {
+                const width = parseInt(window.__visionAISettings.width, 10);
+                if (!isNaN(width) && width >= 256 && width <= 2048) {
+                    widthInput.value = width;
+                } else {
+                    widthInput.value = '1024'; // Default fallback
+                }
+            }
+            
+            // Validate and set height (ensure it's a valid number within range)
+            if (heightInput) {
+                const height = parseInt(window.__visionAISettings.height, 10);
+                if (!isNaN(height) && height >= 256 && height <= 2048) {
+                    heightInput.value = height;
+                } else {
+                    heightInput.value = '1024'; // Default fallback
+                }
+            }
         }
     </script>
     <script type="module" src="app.js"></script>
