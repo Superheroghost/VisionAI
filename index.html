@@ -131,7 +131,15 @@
             const widthInput = document.getElementById('width');
             const heightInput = document.getElementById('height');
             
-            if (modelSelect) modelSelect.value = window.__visionAISettings.model;
+            // Validate and set model (only if option exists)
+            if (modelSelect) {
+                const modelValue = window.__visionAISettings.model;
+                const optionExists = Array.from(modelSelect.options).some(opt => opt.value === modelValue);
+                if (optionExists) {
+                    modelSelect.value = modelValue;
+                }
+            }
+            
             if (widthInput) widthInput.value = window.__visionAISettings.width;
             if (heightInput) heightInput.value = window.__visionAISettings.height;
         }
