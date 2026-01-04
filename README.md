@@ -8,7 +8,7 @@ A sleek, modern web application for generating AI-powered images using the Polli
 
 - **AI Image Generation** - Transform text prompts into stunning images using various AI models
 - **Magic Prompt Enhancement** - Use AI to automatically enhance and improve your prompts for better results
-- **Multiple Models** - Choose from 10 different AI models including Turbo, Flux, Z-Image, SeeDream, GPT Image, and more
+- **Multiple Models** - Choose from 10 different AI models including SDXL Turbo, Flux Schnell, Z-Image Turbo, Seedream, GPT Image, and more
 - **Customizable Dimensions** - Set image width and height (256px to 2048px)
 - **Persistent Settings** - Your selected model, dimensions, and API key are saved and persist across page refreshes
 - **Reset to Defaults** - Easily reset all settings, API key, and history to their default values
@@ -48,13 +48,13 @@ A sleek, modern web application for generating AI-powered images using the Polli
 1. **Enter a Prompt** - Describe the image you want to generate in the text area
 2. **Enhance with Magic Prompt** - Click the wand button (✨) next to the prompt to use AI to enhance your prompt for better results
 3. **Select a Model** - Choose from available AI models:
-   - **Turbo** - Fast generation
-   - **Flux** - AI image generation model
-   - **Z-Image** - Artistic style (default)
-   - **SeeDream / SeeDream Pro** - Dream-like imagery
-   - **GPT Image / GPT Image Large** - GPT-powered generation
-   - **Kontext** - Context-aware generation
-   - **Nano Banana / Nano Banana Pro** - Experimental models
+   - **SDXL Turbo** - Fast generation
+   - **Flux Schnell** - AI image generation model
+   - **Z-Image Turbo** - Artistic style (default)
+   - **Seedream 4.0 / Seedream 4.5 Pro** - Dream-like imagery
+   - **GPT Image 1 Mini / GPT Image 1.5** - GPT-powered generation
+   - **FLUX.1 Kontext** - Context-aware generation
+   - **NanoBanana / NanoBanana Pro** - Experimental models
 4. **Set Dimensions** - Adjust width and height (default: 1024×1024)
 5. **Generate** - Click the "Generate Image" button or press `Ctrl+Enter`
 6. **Save & Share** - Download, copy the link, or share your creation
