@@ -13,7 +13,7 @@
             const savedHeight = localStorage.getItem('vision_ai_height');
             
             window.__visionAISettings = {
-                model: savedModel || 'turbo',
+                model: savedModel || 'zimage',
                 width: savedWidth || '1024',
                 height: savedHeight || '1024'
             };
@@ -57,6 +57,7 @@
                         <label for="model">Model</label>
                         <select id="model">
                             <option value="turbo">Turbo (Fast)</option>
+                            <option value="flux">Flux</option>
                             <option value="zimage">Z-Image (Artistic)</option>
                             <option value="seedream">SeeDream</option>
                             <option value="seedream-pro">SeeDream Pro</option>

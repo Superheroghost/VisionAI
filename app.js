@@ -7,7 +7,7 @@ const state = {
     isGenerating: false,
     history: JSON.parse(localStorage.getItem('vision_ai_history') || '[]'),
     apiKey: localStorage.getItem('pollinations_api_key') || '',
-    model: localStorage.getItem('vision_ai_model') || 'turbo',
+    model: localStorage.getItem('vision_ai_model') || 'zimage',
     width: localStorage.getItem('vision_ai_width') || '1024',
     height: localStorage.getItem('vision_ai_height') || '1024',
 };
@@ -311,14 +311,14 @@ function resetToDefaults() {
 
     // Reset state to defaults
     state.apiKey = '';
-    state.model = 'turbo';
+    state.model = 'zimage';
     state.width = '1024';
     state.height = '1024';
     state.history = [];
 
     // Reset UI elements to defaults
     elements.apiKeyInput.value = '';
-    elements.modelSelect.value = 'turbo';
+    elements.modelSelect.value = 'zimage';
     elements.widthInput.value = '1024';
     elements.heightInput.value = '1024';
 

@@ -8,7 +8,7 @@ A sleek, modern web application for generating AI-powered images using the Polli
 
 - **AI Image Generation** - Transform text prompts into stunning images using various AI models
 - **Magic Prompt Enhancement** - Use AI to automatically enhance and improve your prompts for better results
-- **Multiple Models** - Choose from 9 different AI models including Turbo, Z-Image, SeeDream, GPT Image, and more
+- **Multiple Models** - Choose from 10 different AI models including Turbo, Flux, Z-Image, SeeDream, GPT Image, and more
 - **Customizable Dimensions** - Set image width and height (256px to 2048px)
 - **Persistent Settings** - Your selected model, dimensions, and API key are saved and persist across page refreshes
 - **Reset to Defaults** - Easily reset all settings, API key, and history to their default values
@@ -48,8 +48,9 @@ A sleek, modern web application for generating AI-powered images using the Polli
 1. **Enter a Prompt** - Describe the image you want to generate in the text area
 2. **Enhance with Magic Prompt** - Click the wand button (✨) next to the prompt to use AI to enhance your prompt for better results
 3. **Select a Model** - Choose from available AI models:
-   - **Turbo** - Fast generation (default)
-   - **Z-Image** - Artistic style
+   - **Turbo** - Fast generation
+   - **Flux** - AI image generation model
+   - **Z-Image** - Artistic style (default)
    - **SeeDream / SeeDream Pro** - Dream-like imagery
    - **GPT Image / GPT Image Large** - GPT-powered generation
    - **Kontext** - Context-aware generation
