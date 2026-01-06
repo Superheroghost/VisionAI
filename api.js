@@ -29,6 +29,12 @@ export class PollinationsAPI {
                 model.output_modalities.includes('image')
             );
             
+            // If no image models found, use fallback
+            if (imageModels.length === 0) {
+                console.warn('No image models found in API response, using fallback');
+                return this.getFallbackModels();
+            }
+            
             return imageModels;
         } catch (error) {
             console.error('Error fetching models:', error);
