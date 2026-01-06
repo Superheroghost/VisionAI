@@ -381,4 +381,20 @@ textarea:focus, input:focus, select:focus {
     .controls-grid {
         grid-template-columns: 1fr;
     }
+    
+    /* Reduce padding and font size for better mobile fit */
+    textarea, input, select {
+        padding: 8px;
+        font-size: 14px;
+    }
+    
+    /* Tighter spacing for dimension inputs */
+    .dimension-inputs {
+        gap: 4px;
+    }
+    
+    /* Ensure number inputs don't overflow */
+    .dimension-inputs input {
+        min-width: 0;
+    }
 }
