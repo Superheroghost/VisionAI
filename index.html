@@ -8,10 +8,12 @@
     <script>
         // Load settings before page renders to prevent flicker
         (function() {
+            const savedModel = localStorage.getItem('vision_ai_model');
             const savedWidth = localStorage.getItem('vision_ai_width');
             const savedHeight = localStorage.getItem('vision_ai_height');
             
             window.__visionAISettings = {
+                model: savedModel || 'zimage',
                 width: savedWidth || '1024',
                 height: savedHeight || '1024'
             };
@@ -54,7 +56,16 @@
                     <div class="input-subgroup">
                         <label for="model">Model</label>
                         <select id="model">
-                            <!-- Models will be populated dynamically from API -->
+                            <option value="turbo">SDXL Turbo</option>
+                            <option value="flux">Flux Schnell</option>
+                            <option value="zimage">Z-Image Turbo</option>
+                            <option value="seedream">Seedream 4.0</option>
+                            <option value="seedream-pro">Seedream 4.5 Pro</option>
+                            <option value="gptimage">GPT Image 1 Mini</option>
+                            <option value="gptimage-large">GPT Image 1.5</option>
+                            <option value="kontext">FLUX.1 Kontext</option>
+                            <option value="nanobanana">NanoBanana</option>
+                            <option value="nanobanana-pro">NanoBanana Pro</option>
                         </select>
                     </div>
 
@@ -117,8 +128,19 @@
     <script>
         // Apply saved settings immediately to prevent flicker
         if (window.__visionAISettings) {
+            const modelSelect = document.getElementById('model');
             const widthInput = document.getElementById('width');
             const heightInput = document.getElementById('height');
+            
+            // Validate and set model (only if option exists)
+            if (modelSelect) {
+                const modelValue = window.__visionAISettings.model;
+                // Find option safely without CSS injection risk
+                const optionExists = Array.from(modelSelect.options).find(opt => opt.value === modelValue);
+                if (optionExists) {
+                    modelSelect.value = modelValue;
+                }
+            }
             
             // Validate and set width (ensure it's a valid number within range)
             if (widthInput) {
