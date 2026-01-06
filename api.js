@@ -24,10 +24,13 @@ export class PollinationsAPI {
             const models = await response.json();
             
             // Filter to only include models with "image" in output_modalities
-            const imageModels = models.filter(model => 
-                model.output_modalities && 
-                model.output_modalities.includes('image')
-            );
+            const imageModels = models.filter(model => {
+                // Ensure output_modalities exists and is an array
+                if (!model.output_modalities || !Array.isArray(model.output_modalities)) {
+                    return false;
+                }
+                return model.output_modalities.includes('image');
+            });
             
             // If no image models found, use fallback
             if (imageModels.length === 0) {
