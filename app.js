@@ -49,6 +49,13 @@ async function loadModels() {
         // Fetch models from API
         state.availableModels = await api.fetchImageModels();
         
+        // Safety check: ensure we have models
+        if (!state.availableModels || state.availableModels.length === 0) {
+            console.error('No models available');
+            showToast('Failed to load models');
+            return;
+        }
+        
         // Populate the model dropdown
         elements.modelSelect.innerHTML = '';
         state.availableModels.forEach(model => {
@@ -74,7 +81,7 @@ async function loadModels() {
         elements.modelSelect.value = state.model;
     } catch (error) {
         console.error('Failed to load models:', error);
-        showToast('Failed to load models from API, using fallback');
+        showToast('Failed to load models from API');
     }
 }
 
