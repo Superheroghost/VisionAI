@@ -5,10 +5,54 @@ export class PollinationsAPI {
     constructor(apiKey = '') {
         this.apiKey = apiKey;
         this.baseUrl = 'https://gen.pollinations.ai/image';
+        this.modelsUrl = 'https://gen.pollinations.ai/image/models';
     }
 
     setApiKey(key) {
         this.apiKey = key;
+    }
+
+    /**
+     * Fetches available models from the API and filters for image output models
+     */
+    async fetchImageModels() {
+        try {
+            const response = await fetch(this.modelsUrl);
+            if (!response.ok) {
+                throw new Error(`Failed to fetch models: ${response.status}`);
+            }
+            const models = await response.json();
+            
+            // Filter to only include models with "image" in output_modalities
+            const imageModels = models.filter(model => 
+                model.output_modalities && 
+                model.output_modalities.includes('image')
+            );
+            
+            return imageModels;
+        } catch (error) {
+            console.error('Error fetching models:', error);
+            // Return fallback models if API fails
+            return this.getFallbackModels();
+        }
+    }
+
+    /**
+     * Fallback models in case API is unavailable
+     */
+    getFallbackModels() {
+        return [
+            { name: "turbo", description: "SDXL Turbo - Single-step real-time generation" },
+            { name: "flux", description: "Flux Schnell - Fast high-quality image generation" },
+            { name: "zimage", description: "Z-Image Turbo - Fast 6B Flux with 2x upscaling" },
+            { name: "seedream", description: "Seedream 4.0 - ByteDance ARK (better quality)" },
+            { name: "seedream-pro", description: "Seedream 4.5 Pro - ByteDance ARK (4K, Multi-Image)" },
+            { name: "gptimage", description: "GPT Image 1 Mini - OpenAI's image generation model" },
+            { name: "gptimage-large", description: "GPT Image 1.5 - OpenAI's advanced image generation model" },
+            { name: "kontext", description: "FLUX.1 Kontext - In-context editing & generation" },
+            { name: "nanobanana", description: "NanoBanana - Gemini 2.5 Flash Image" },
+            { name: "nanobanana-pro", description: "NanoBanana Pro - Gemini 3 Pro Image (4K, Thinking)" }
+        ];
     }
 
     /**
