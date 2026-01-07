@@ -48,6 +48,12 @@ function loadModels() {
     // Get static models list
     state.availableModels = api.getAvailableModels();
     
+    // Safety check: ensure we have models (should always be true with static list)
+    if (!state.availableModels || state.availableModels.length === 0) {
+        console.error('No models available');
+        return;
+    }
+    
     // Populate the model dropdown
     elements.modelSelect.innerHTML = '';
     state.availableModels.forEach(model => {
