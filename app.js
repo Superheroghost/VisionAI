@@ -44,103 +44,96 @@ const refreshIcons = () => createIcons({
     icons: { Settings, Sparkles, Image, History, Download, Copy, Share2, Wand2, AlertCircle }
 });
 
-async function loadModels() {
-    try {
-        // Fetch models from API
-        state.availableModels = await api.fetchImageModels();
-        
-        // Safety check: ensure we have models
-        if (!state.availableModels || state.availableModels.length === 0) {
-            console.error('No models available');
-            showToast('Failed to load models');
-            return;
-        }
-        
-        // Populate the model dropdown
-        elements.modelSelect.innerHTML = '';
-        state.availableModels.forEach(model => {
-            const option = document.createElement('option');
-            option.value = model.name; // Use model ID for API calls
-            option.textContent = model.description; // Use description for display
-            elements.modelSelect.appendChild(option);
-        });
-        
-        // Set model: use saved model if valid, otherwise pick random
-        const savedModel = localStorage.getItem('vision_ai_model');
-        const modelExists = state.availableModels.some(m => m.name === savedModel);
-        
-        if (savedModel && modelExists) {
-            state.model = savedModel;
-        } else {
-            // Pick a random model as default
-            const randomIndex = Math.floor(Math.random() * state.availableModels.length);
-            state.model = state.availableModels[randomIndex].name;
-            localStorage.setItem('vision_ai_model', state.model);
-        }
-        
-        elements.modelSelect.value = state.model;
-    } catch (error) {
-        console.error('Failed to load models:', error);
-        showToast('Failed to load models from API');
+function loadModels() {
+    // Get static models list
+    state.availableModels = api.getAvailableModels();
+    
+    // Safety check: ensure we have models (should always be true with static list)
+    if (!state.availableModels || state.availableModels.length === 0) {
+        console.error('No models available');
+        return;
     }
+    
+    // Populate the model dropdown
+    elements.modelSelect.innerHTML = '';
+    state.availableModels.forEach(model => {
+        const option = document.createElement('option');
+        option.value = model.name; // Use model ID for API calls
+        option.textContent = model.description; // Use description for display
+        elements.modelSelect.appendChild(option);
+    });
+    
+    // Set model: use saved model if valid, otherwise pick random
+    const savedModel = localStorage.getItem('vision_ai_model');
+    const modelExists = state.availableModels.some(m => m.name === savedModel);
+    
+    if (savedModel && modelExists) {
+        state.model = savedModel;
+    } else {
+        // Pick a random model as default
+        const randomIndex = Math.floor(Math.random() * state.availableModels.length);
+        state.model = state.availableModels[randomIndex].name;
+        localStorage.setItem('vision_ai_model', state.model);
+    }
+    
+    elements.modelSelect.value = state.model;
 }
 
 function init() {
     refreshIcons();
     
-    // Load models first, then initialize rest of the app
-    loadModels().then(() => {
-        renderHistory();
-        
-        // Set stored API key in input
-        elements.apiKeyInput.value = state.apiKey;
-        
-        // Set stored dimensions
-        elements.widthInput.value = state.width;
-        elements.heightInput.value = state.height;
-        
-        // If no API key, ensure container is visible
-        if (!state.apiKey) {
-            elements.apiKeyContainer.classList.remove('hidden');
-        }
+    // Load models (now synchronous)
+    loadModels();
+    renderHistory();
+    
+    // Set stored API key in input
+    elements.apiKeyInput.value = state.apiKey;
+    
+    // Set stored dimensions
+    elements.widthInput.value = state.width;
+    elements.heightInput.value = state.height;
+    
+    // If no API key, ensure container is visible
+    if (!state.apiKey) {
+        elements.apiKeyContainer.classList.remove('hidden');
+    }
 
-        // Event Listeners
-        elements.generateBtn.addEventListener('click', handleGenerate);
-        elements.magicPromptBtn.addEventListener('click', handleMagicPrompt);
-        elements.settingsToggle.addEventListener('click', () => {
-            elements.apiKeyContainer.classList.toggle('hidden');
-        });
+    // Event Listeners
+    elements.generateBtn.addEventListener('click', handleGenerate);
+    elements.magicPromptBtn.addEventListener('click', handleMagicPrompt);
+    elements.settingsToggle.addEventListener('click', () => {
+        elements.apiKeyContainer.classList.toggle('hidden');
+    });
 
-        elements.apiKeyInput.addEventListener('input', (e) => {
-            state.apiKey = e.target.value;
-            localStorage.setItem('pollinations_api_key', state.apiKey);
-            api.setApiKey(state.apiKey);
-        });
+    elements.apiKeyInput.addEventListener('input', (e) => {
+        state.apiKey = e.target.value;
+        localStorage.setItem('pollinations_api_key', state.apiKey);
+        api.setApiKey(state.apiKey);
+    });
 
-        elements.modelSelect.addEventListener('change', (e) => {
-            state.model = e.target.value;
-            localStorage.setItem('vision_ai_model', state.model);
-        });
+    elements.modelSelect.addEventListener('change', (e) => {
+        state.model = e.target.value;
+        localStorage.setItem('vision_ai_model', state.model);
+    });
 
-        elements.widthInput.addEventListener('input', (e) => {
-            state.width = e.target.value;
-            localStorage.setItem('vision_ai_width', state.width);
-        });
+    elements.widthInput.addEventListener('input', (e) => {
+        state.width = e.target.value;
+        localStorage.setItem('vision_ai_width', state.width);
+    });
 
-        elements.heightInput.addEventListener('input', (e) => {
-            state.height = e.target.value;
-            localStorage.setItem('vision_ai_height', state.height);
-        });
+    elements.heightInput.addEventListener('input', (e) => {
+        state.height = e.target.value;
+        localStorage.setItem('vision_ai_height', state.height);
+    });
 
-        elements.downloadBtn.addEventListener('click', downloadImage);
-        elements.copyBtn.addEventListener('click', copyImageLink);
-        elements.shareBtn.addEventListener('click', shareImage);
-        elements.resetDefaultsBtn.addEventListener('click', resetToDefaults);
+    elements.downloadBtn.addEventListener('click', downloadImage);
+    elements.copyBtn.addEventListener('click', copyImageLink);
+    elements.shareBtn.addEventListener('click', shareImage);
+    elements.resetDefaultsBtn.addEventListener('click', resetToDefaults);
 
-        // Enter to generate
-        elements.promptInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' && e.ctrlKey) handleGenerate();
-        });
+    // Enter to generate
+    elements.promptInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && e.ctrlKey) handleGenerate();
     });
 }
 
@@ -370,7 +363,7 @@ async function resetToDefaults() {
     renderHistory();
 
     // Reload models and pick a new random one
-    await loadModels();
+    loadModels();
 
     // Show confirmation
     showToast("Settings reset to defaults!");
