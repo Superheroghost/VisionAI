@@ -59,8 +59,10 @@ function loadModels() {
     state.availableModels.forEach(model => {
         const option = document.createElement('option');
         option.value = model.name; // Use model ID for API calls
-        // Limit description to before " - " (space-dash-space) if present
-        const displayDescription = (model.description || '').split(' - ')[0].trim();
+        // Limit description to before last " - " (space-dash-space) if present
+        const desc = model.description || '';
+        const lastDashIndex = desc.lastIndexOf(' - ');
+        const displayDescription = lastDashIndex !== -1 ? desc.substring(0, lastDashIndex).trim() : desc.trim();
         option.textContent = displayDescription; // Use description for display
         elements.modelSelect.appendChild(option);
     });
