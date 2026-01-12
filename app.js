@@ -60,7 +60,7 @@ function loadModels() {
         const option = document.createElement('option');
         option.value = model.name; // Use model ID for API calls
         // Limit description to before " - " (space-dash-space) if present
-        const displayDescription = model.description.split(' - ')[0].trim();
+        const displayDescription = (model.description || '').split(' - ')[0].trim();
         option.textContent = displayDescription; // Use description for display
         elements.modelSelect.appendChild(option);
     });
